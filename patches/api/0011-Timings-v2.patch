@@ -3184,11 +3184,11 @@ index 9207ae900cb4cc8ce41dd4e63d7ad8b35b0ac048..36fc2c35395c72f8b81a2a2f3265fd20
  import org.bukkit.entity.Player;
  import org.bukkit.util.StringUtil;
 @@ -36,7 +35,7 @@ public class SimpleCommandMap implements CommandMap {
-         register("bukkit", new VersionCommand("version"));
+         // register("bukkit", new VersionCommand("version"));
          register("bukkit", new ReloadCommand("reload"));
-         //register("bukkit", new PluginsCommand("plugins")); // Paper
+         // register("bukkit", new PluginsCommand("plugins")); // Paper
 -        register("bukkit", new TimingsCommand("timings"));
-+        register("bukkit", new co.aikar.timings.TimingsCommand("timings")); // Paper
++        // register("bukkit", new co.aikar.timings.TimingsCommand("timings")); // Paper
      }
  
      public void setFallbackCommands() {

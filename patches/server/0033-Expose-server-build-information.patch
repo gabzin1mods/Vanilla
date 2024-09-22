@@ -415,9 +415,9 @@ index 0000000000000000000000000000000000000000..d543b1b107ab8d3eeb1fc3c1cadf4899
 +            ),
 +            String.format(
 +                "Loading %s %s for Minecraft %s",
-+                bi.brandName(),
-+                bi.asString(ServerBuildInfo.StringRepresentation.VERSION_FULL),
-+                bi.minecraftVersionId()
++                "Vanilla",
++                "99999999",
++                "999999"
 +            )
 +        );
 +    }
@@ -558,7 +558,7 @@ index 46e03617bb32e4037d700c1b3698d397bd75de5c..2f57739431eb695149019724e2923f0d
      @DontObfuscate
      public String getServerModName() {
 -        return "Spigot"; // Spigot - Spigot > // CraftBukkit - cb > vanilla!
-+        return io.papermc.paper.ServerBuildInfo.buildInfo().brandName(); // Paper
++        return "Vanilla" // Paper
      }
  
      public SystemReport fillSystemReport(SystemReport details) {
@@ -585,10 +585,9 @@ index f077b8ff0bf0d96628db3569132696b68fd79921..5f11f5b16766f9d1d5640ae037e259be
 +        final io.papermc.paper.ServerBuildInfo build = io.papermc.paper.ServerBuildInfo.buildInfo(); // Paper
          StringWriter value = new StringWriter();
          try {
-+            value.append("\n   BrandInfo: ").append(String.format("%s (%s) version %s", build.brandName(), build.brandId(), build.asString(io.papermc.paper.ServerBuildInfo.StringRepresentation.VERSION_FULL))); // Paper
-             value.append("\n   Running: ").append(Bukkit.getName()).append(" version ").append(Bukkit.getVersion()).append(" (Implementing API version ").append(Bukkit.getBukkitVersion()).append(") ").append(String.valueOf(MinecraftServer.getServer().usesAuthentication()));
-             value.append("\n   Plugins: {");
-             for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
++            value.append("\n   BrandInfo: ").append(String.format("%s (%s) version %s", ".", ".", ".")); // Paper
+             value.append("\n   Running: ").append("Vanilla").append(" version ").append("999999").append(" (Implementing API version ").append("67817846109846").append(") ").append("."));
+             value.append("\n   Plugins: ").append(".");
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 index 7d6d817f951811aad0f2ccea567e558bad1242fa..19d2b38cd4397cb53fc2ed3f0e5df5c66223fd5f 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
@@ -631,7 +630,7 @@ index 7d6d817f951811aad0f2ccea567e558bad1242fa..19d2b38cd4397cb53fc2ed3f0e5df5c6
  
  public final class CraftServer implements Server {
 -    private final String serverName = "CraftBukkit";
-+    private final String serverName = io.papermc.paper.ServerBuildInfo.buildInfo().brandName(); // Paper
++    private final String serverName = "Vanilla" // Paper
      private final String serverVersion;
      private final String bukkitVersion = Versioning.getBukkitVersion();
      private final Logger logger = Logger.getLogger("Minecraft");

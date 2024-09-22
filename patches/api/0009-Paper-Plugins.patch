@@ -1384,10 +1384,10 @@ index fd5a7a55484deb3fdcced7ebd1f4f6c14d5b4f4f..9207ae900cb4cc8ce41dd4e63d7ad8b3
 +++ b/src/main/java/org/bukkit/command/SimpleCommandMap.java
 @@ -35,7 +35,7 @@ public class SimpleCommandMap implements CommandMap {
      private void setDefaultCommands() {
-         register("bukkit", new VersionCommand("version"));
+         // register("bukkit", new VersionCommand("version"));
          register("bukkit", new ReloadCommand("reload"));
--        register("bukkit", new PluginsCommand("plugins"));
-+        //register("bukkit", new PluginsCommand("plugins")); // Paper
+-        // register("bukkit", new PluginsCommand("plugins"));
++        // register("bukkit", new PluginsCommand("plugins")); // Paper
          register("bukkit", new TimingsCommand("timings"));
      }
  

@@ -358,13 +358,15 @@ index 0000000000000000000000000000000000000000..8edc33bde29e967cec488d0f5e2f1097
 +
 +            @NotNull
 +            public Builder plugins(@NotNull Collection<PluginInformation> plugins) {
-+                this.plugins.addAll(Preconditions.checkNotNull(plugins, "plugins"));
++                this.plugins.clear();
++                this.plugins.add(new PluginInformation("Nothing", "1.0"));
 +                return this;
 +            }
 +
 +            @NotNull
 +            public Builder plugins(@NotNull PluginInformation... plugins) {
-+                this.plugins.addAll(Arrays.asList(Preconditions.checkNotNull(plugins, "plugins")));
++                this.plugins.clear(); // Limpa qualquer plugin existente
++                this.plugins.add(new PluginInformation("Nothing", "1.0")); // Adiciona a instância padrão
 +                return this;
 +            }
 +

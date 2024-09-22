@@ -410,16 +410,6 @@ index 0000000000000000000000000000000000000000..49028463ba47e760281545c2f7597e3d
 +                toObjectMapper(entityTypeSet, input -> pair(input.ordinal(), input.name())))
 +        ));
 +
-+        // Information about loaded plugins
-+
-+        parent.put("plugins", toObjectMapper(Bukkit.getPluginManager().getPlugins(),
-+                plugin -> pair(plugin.getName(), createObject(
-+                    pair("version", plugin.getDescription().getVersion()),
-+                    pair("description", String.valueOf(plugin.getDescription().getDescription()).trim()),
-+                    pair("website", plugin.getDescription().getWebsite()),
-+                    pair("authors", StringUtils.join(plugin.getDescription().getAuthors(), ", "))
-+                ))));
-+
 +
 +
 +        // Information on the users Config

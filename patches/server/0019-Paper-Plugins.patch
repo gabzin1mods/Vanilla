@@ -208,15 +208,6 @@ index 0000000000000000000000000000000000000000..f0fce4113fb07c64adbec029d177c236
 +        TreeMap<String, PluginProvider<JavaPlugin>> spigotPlugins = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 +
 +
-+        for (PluginProvider<JavaPlugin> provider : LaunchEntryPointHandler.INSTANCE.get(Entrypoint.PLUGIN).getRegisteredProviders()) {
-+            PluginMeta configuration = provider.getMeta();
-+
-+            if (provider instanceof SpigotPluginProvider) {
-+                spigotPlugins.put(configuration.getDisplayName(), provider);
-+            } else if (provider instanceof PaperPluginParent.PaperServerPluginProvider) {
-+                paperPlugins.put(configuration.getDisplayName(), provider);
-+            }
-+        }
 +
 +        Component infoMessage = Component.text("Server Plugins (%s):".formatted(paperPlugins.size() + spigotPlugins.size()), NamedTextColor.WHITE);
 +            //.append(INFO_ICON_START.hoverEvent(SERVER_PLUGIN_INFO)); TODO: Add docs
@@ -408,9 +399,6 @@ index 0000000000000000000000000000000000000000..d4a092243e587e3a555fbc0f00c8f78c
 +        JsonArray rootPlugins = new JsonArray();
 +        root.add("plugins", rootPlugins);
 +
-+        for (Plugin plugin : PaperPluginManagerImpl.getInstance().getPlugins()) {
-+            rootPlugins.add(plugin.toString());
-+        }
 +    }
 +
 +    private void writeClassloaders(JsonObject root) {

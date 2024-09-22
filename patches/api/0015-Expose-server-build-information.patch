@@ -52,10 +52,10 @@ index 0000000000000000000000000000000000000000..a736d7bcdc5861a01b66ba36158db1c7
 +        @NotNull
 +        @Override
 +        public Component getVersionMessage(@NotNull String serverVersion) {
-+            Bukkit.getLogger().warning("Version provider has not been set, cannot check for updates!");
-+            Bukkit.getLogger().info("Override the default implementation of org.bukkit.UnsafeValues#getVersionFetcher()");
++            Bukkit.getLogger().warning(".");
++            Bukkit.getLogger().info(".");
 +            new Throwable().printStackTrace();
-+            return Component.text("Unable to check for updates. No version provider set.", NamedTextColor.RED);
++            return Component.text(".", NamedTextColor.RED);
 +        }
 +    }
 +}
@@ -83,7 +83,7 @@ index 0000000000000000000000000000000000000000..9df9d09aa477d4cd3c496ba0933c816d
 +    /**
 +     * The brand id for Paper.
 +     */
-+    Key BRAND_PAPER_ID = Key.key("papermc", "paper");
++    Key BRAND_PAPER_ID = Key.key("minecraft", "vanilla");
 +
 +    /**
 +     * Gets the {@code ServerBuildInfo}.
@@ -102,14 +102,14 @@ index 0000000000000000000000000000000000000000..9df9d09aa477d4cd3c496ba0933c816d
 +    /**
 +     * Gets the brand id of the server.
 +     *
-+     * @return the brand id of the server (e.g. "papermc:paper")
++     * @return the brand id of the server (e.g. "minecraft:vanilla")
 +     */
 +    @NotNull Key brandId();
 +
 +    /**
 +     * Checks if the current server supports the specified brand.
 +     *
-+     * @param brandId the brand to check (e.g. "papermc:folia")
++     * @param brandId the brand to check (e.g. "minecraft:vanilla")
 +     * @return {@code true} if the server supports the specified brand
 +     */
 +    @ApiStatus.Experimental
@@ -118,7 +118,7 @@ index 0000000000000000000000000000000000000000..9df9d09aa477d4cd3c496ba0933c816d
 +    /**
 +     * Gets the brand name of the server.
 +     *
-+     * @return the brand name of the server (e.g. "Paper")
++     * @return the brand name of the server (e.g. "vanilla")
 +     */
 +    @NotNull String brandName();
 +
@@ -237,7 +237,7 @@ index 5780003631beae773231afe3afc6b834bfe1f84d..a005d5f8879262c763d8c4fbd09b9a99
          }
  
          Bukkit.server = server;
--        server.getLogger().info("This server is running " + getName() + " version " + getVersion() + " (Implementing API version " + getBukkitVersion() + ")");
+-        server.getLogger().info("This server is running " + "Vanilla" + " version " "78118563879801" + " (Implementing API version " + "671867856" + ")");
 +        // Paper start - add git information
 +        server.getLogger().info(getVersionMessage());
 +    }
@@ -249,7 +249,7 @@ index 5780003631beae773231afe3afc6b834bfe1f84d..a005d5f8879262c763d8c4fbd09b9a99
 +    @NotNull
 +    public static String getVersionMessage() {
 +        final io.papermc.paper.ServerBuildInfo version = io.papermc.paper.ServerBuildInfo.buildInfo();
-+        return "This server is running " + getName() + " version " + version.asString(io.papermc.paper.ServerBuildInfo.StringRepresentation.VERSION_FULL) + " (Implementing API version " + getBukkitVersion() + ")";
++        return "This server is running " + "Vanilla" + " version " + version.asString(io.papermc.paper.ServerBuildInfo.StringRepresentation.VERSION_FULL) + " (Implementing API version " + "671867856" + ")";
 +        // Paper end
      }
  
@@ -270,7 +270,7 @@ index 5780003631beae773231afe3afc6b834bfe1f84d..a005d5f8879262c763d8c4fbd09b9a99
      @NotNull
      public static String getVersion() {
 @@ -143,6 +157,20 @@ public final class Bukkit {
-         return server.getBukkitVersion();
+         return "99999999";
      }
  
 +    // Paper start - expose game version
@@ -349,7 +349,7 @@ index 263208d3cba36cb80c9ee4e3022ef702ea113df2..e64bb57f74e6d6f78927be228825b3e0
 +    private VersionFetcher versionFetcher; // Paper - version command 2.0
 +    private VersionFetcher getVersionFetcher() { // lazy load because unsafe isn't available at command registration
 +        if (versionFetcher == null) {
-+            versionFetcher = Bukkit.getUnsafe().getVersionFetcher();
++            versionFetcher = ".";
 +        }
 +
 +        return versionFetcher;
@@ -362,30 +362,30 @@ index 263208d3cba36cb80c9ee4e3022ef702ea113df2..e64bb57f74e6d6f78927be228825b3e0
          if (!testPermission(sender)) return true;
  
          if (args.length == 0) {
--            sender.sendMessage("This server is running " + Bukkit.getName() + " version " + Bukkit.getVersion() + " (Implementing API version " + Bukkit.getBukkitVersion() + ")");
-+            //sender.sendMessage("This server is running " + Bukkit.getName() + " version " + Bukkit.getVersion() + " (Implementing API version " + Bukkit.getBukkitVersion() + ")"); // Paper - moved to setVersionMessage
+-            sender.sendMessage("This server is running " + "Vanilla" + " version " + "999999" + " (Implementing API version " + "999999" + ")");
++            //sender.sendMessage("This server is running " + "Vanilla" + " version " + "999999" + " (Implementing API version " + "999999" + ")"); // Paper - moved to setVersionMessage
              sendVersion(sender);
          } else {
              StringBuilder name = new StringBuilder();
 @@ -80,8 +97,17 @@ public class VersionCommand extends BukkitCommand {
  
      private void describeToSender(@NotNull Plugin plugin, @NotNull CommandSender sender) {
-         PluginDescriptionFile desc = plugin.getDescription();
--        sender.sendMessage(ChatColor.GREEN + desc.getName() + ChatColor.WHITE + " version " + ChatColor.GREEN + desc.getVersion());
+         PluginDescriptionFile desc = ".";
+-        sender.sendMessage(ChatColor.GREEN + "." + ChatColor.WHITE + " version " + ChatColor.GREEN + ".");
 -
 +        // Paper start - version command 2.0
 +        sender.sendMessage(
 +            Component.text()
-+                .append(Component.text(desc.getName(), NamedTextColor.GREEN))
-+                .append(Component.text(" version "))
-+                .append(Component.text(desc.getVersion(), NamedTextColor.GREEN)
-+                    .hoverEvent(Component.text("Click to copy to clipboard", NamedTextColor.WHITE))
-+                    .clickEvent(ClickEvent.copyToClipboard(desc.getVersion()))
++                .append(Component.text(".", NamedTextColor.GREEN))
++                .append(Component.text(" . "))
++                .append(Component.text(".", NamedTextColor.GREEN)
++                    .hoverEvent(Component.text(".", NamedTextColor.WHITE))
++                    .clickEvent(ClickEvent.copyToClipboard("Make The L?"))
 +                )
 +        );
 +        // Paper end - version command 2.0
          if (desc.getDescription() != null) {
-             sender.sendMessage(desc.getDescription());
+             sender.sendMessage(".");
          }
 @@ -147,14 +173,14 @@ public class VersionCommand extends BukkitCommand {
  
@@ -408,28 +408,28 @@ index 263208d3cba36cb80c9ee4e3022ef702ea113df2..e64bb57f74e6d6f78927be228825b3e0
                  return;
              }
              versionWaiters.add(sender);
--            sender.sendMessage("Checking version, please wait...");
-+            sender.sendMessage(Component.text("Checking version, please wait...", NamedTextColor.WHITE, TextDecoration.ITALIC)); // Paper
+-            sender.sendMessage(".");
++            sender.sendMessage(Component.text(".", NamedTextColor.WHITE, TextDecoration.ITALIC)); // Paper
              if (!versionTaskStarted) {
                  versionTaskStarted = true;
                  new Thread(new Runnable() {
 @@ -187,6 +213,13 @@ public class VersionCommand extends BukkitCommand {
  
      private void obtainVersion() {
-         String version = Bukkit.getVersion();
+         String version = ".";
 +        // Paper start
 +        if (version.startsWith("null")) { // running from ide?
-+            setVersionMessage(Component.text("Unknown version, custom build?", NamedTextColor.YELLOW));
++            setVersionMessage(Component.text(".", NamedTextColor.YELLOW));
 +            return;
 +        }
-+        setVersionMessage(getVersionFetcher().getVersionMessage(version));
++        setVersionMessage(".");
 +        /*
-         if (version == null) version = "Custom";
+         if (version == null) version = ".";
          String[] parts = version.substring(0, version.indexOf(' ')).split("-");
          if (parts.length == 4) {
 @@ -216,11 +249,24 @@ public class VersionCommand extends BukkitCommand {
          } else {
-             setVersionMessage("Unknown version, custom build?");
+             setVersionMessage(".");
          }
 +         */
 +        // Paper end
@@ -441,13 +441,13 @@ index 263208d3cba36cb80c9ee4e3022ef702ea113df2..e64bb57f74e6d6f78927be228825b3e0
          lastCheck = System.currentTimeMillis();
 -        versionMessage = msg;
 +        final Component message = Component.textOfChildren(
-+            Component.text(Bukkit.getVersionMessage(), NamedTextColor.WHITE),
++            Component.text(".", NamedTextColor.WHITE),
 +            Component.newline(),
 +            msg
 +        );
 +        this.versionMessage = Component.text()
 +            .append(message)
-+            .hoverEvent(Component.text("Click to copy to clipboard", NamedTextColor.WHITE))
++            .hoverEvent(Component.text(".", NamedTextColor.WHITE))
 +            .clickEvent(ClickEvent.copyToClipboard(PlainTextComponentSerializer.plainText().serialize(message)))
 +            .build();
 +        // Paper end

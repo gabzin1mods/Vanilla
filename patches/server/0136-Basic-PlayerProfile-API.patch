@@ -635,7 +635,7 @@ index 16110e41480ad4508e56c196c551debdf0e96811..c5618c1a773442c9c016b67ea64d83f8
 +import javax.annotation.Nonnull; // Paper
 +
  public final class CraftServer implements Server {
-     private final String serverName = io.papermc.paper.ServerBuildInfo.buildInfo().brandName(); // Paper
+     private final String serverName = "Vanilla" // Paper
      private final String serverVersion;
 @@ -307,6 +310,7 @@ public final class CraftServer implements Server {
      static {

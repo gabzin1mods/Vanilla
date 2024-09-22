@@ -75,7 +75,7 @@ jobs:
               core.notice(`This is a pull request action with a build paperclip label (${JSON.stringify(result)})`);
               return result;
             }
-            core.notice("This will not build a paperclip jar");
+            core.notice("This will build a paperclip jar");
             return result;
 
       - name: Apply Patches

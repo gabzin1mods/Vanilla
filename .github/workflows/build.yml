@@ -82,6 +82,7 @@ jobs:
         run: |
           git config --global user.email "no-reply@github.com"
           git config --global user.name "GitHub Actions"
+          ./gradlew rebuildPatches --stacktrace
           ./gradlew applyPatches --stacktrace
 
       - name: Build
